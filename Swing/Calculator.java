@@ -1,0 +1,87 @@
+package Swing;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Calculator extends JFrame implements ActionListener {
+    JTextField text, text1, text2;
+    JLabel label, label1, label2;
+    JButton buttonAdd, buttonSub, buttonMlt, buttonDiv;
+
+    public Calculator() {
+        this.setLayout(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(500, 600);
+
+        label1 = new JLabel("First num");
+        label1.setBounds(100, 100, 80, 50);
+        this.add(label1);
+        text1 = new JTextField();
+        text1.setBounds(200, 100, 180, 50);
+        add(text1);
+
+        label2 = new JLabel("Second num");
+        label2.setBounds(100, 160, 80, 50);
+        this.add(label2);
+        text2 = new JTextField();
+        text2.setBounds(200, 170, 180, 50);
+        add(text2);
+
+        label = new JLabel("Result ");
+        label.setBounds(100, 230, 100, 50);
+        this.add(label);
+        text = new JTextField("0");
+        text.setBounds(200, 230, 180, 50);
+        this.add(text);
+
+        buttonAdd = new JButton("+");
+        buttonAdd.setBounds(180, 290, 50, 40);
+        add(buttonAdd);
+
+        buttonSub = new JButton("-");
+        buttonSub.setBounds(240, 290, 50, 40);
+        add(buttonSub);
+
+        buttonMlt = new JButton("*");
+        buttonMlt.setBounds(300, 290, 50, 40);
+        add(buttonMlt);
+
+        buttonDiv = new JButton("/");
+        buttonDiv.setBounds(360, 290, 50, 40);
+        add(buttonDiv);
+
+        // Add action listeners for all buttons
+        buttonAdd.addActionListener(this);
+        buttonSub.addActionListener(this);
+        buttonMlt.addActionListener(this);
+        buttonDiv.addActionListener(this);
+
+        this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        double result = 0;
+        double first = Double.parseDouble(text1.getText());
+        double second = Double.parseDouble(text2.getText());
+
+        // Check which button was pressed and perform the corresponding operation
+        if (e.getSource() == buttonAdd) {
+            result = first + second;
+        } else if (e.getSource() == buttonSub) {
+            result = first - second;
+        } else if (e.getSource() == buttonMlt) {
+            result = first * second;
+        } else if (e.getSource() == buttonDiv) {
+            if (second != 0) {
+                result = first / second;
+            } else {
+                text.setText("Error");
+                return;
+            }
+        }
+
+        text.setText(String.valueOf(result));
+    }
+}
